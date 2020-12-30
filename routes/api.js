@@ -8,9 +8,28 @@ module.exports = function (app) {
 
   app.route('/api/check')
     .post((req, res) => {
+      console.log('CHECK endpoint hit');
+
       const {puzzle, coordinate, value} = req.body;
 
-      console.log(solver.checkCoordinate(puzzle, coordinate, value));
+      if (puzzle === undefined || 
+          puzzle === '' ||
+          coordinate === undefined ||
+          coordinate === '' ||
+          value === undefined ||
+          value === '') {
+        return res.json({error: 'Required field(s) missing'});
+      }
+
+      const {result, error} = solver.validate(puzzle);
+
+      if (error === 'Expected puzzle to be 81 characters long') {
+        return res.json({error});
+      }
+
+      if (error === 'Invalid characters in puzzle') {
+        return res.json({error});
+      }
 
       return res.json(solver.checkCoordinate(puzzle, coordinate, value));
     });
