@@ -2,10 +2,16 @@ class SudokuSolver {
 
   validate(puzzleString) {
     if (puzzleString.length !== 81) {
-      return false;
+      return {result: false, error: 'Expected puzzle to be 81 characters long'};
     }
+
     const testRegex = /^[1-9.]+$/;
-    return testRegex.test(puzzleString);
+
+    if (!testRegex.test(puzzleString)) {
+      return {result: false, error: 'Invalid characters in puzzle'};
+    }
+
+    return {result: true};
   }
   
   // ROWS ARE A-I, COLUMNS are 1-9
@@ -14,7 +20,7 @@ class SudokuSolver {
     const startingIndex = rows.indexOf(row.toUpperCase()) * 9;
 
     for (let index = startingIndex; index < startingIndex + 9; ++index) {
-      if (puzzleString[index] === value) {
+      if (puzzleString[index] == value) {
         return false;
       }
     }
@@ -33,7 +39,7 @@ class SudokuSolver {
   checkColPlacement(puzzleString, row, column, value) {
     const startingIndex = column - 1;
     for (let index = startingIndex; index < puzzleString.length; index += 9) {
-      if (puzzleString[index] === value) {
+      if (puzzleString[index] == value) {
         return false;
       }
     }
@@ -70,7 +76,7 @@ class SudokuSolver {
     for (const region of regions) {
       if (region.includes(indexOfCoord)) {
         for (const index of region) {
-          if (puzzleString[index] === value) {
+          if (puzzleString[index] == value) {
             return false;
           }
         }
