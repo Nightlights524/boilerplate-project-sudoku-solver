@@ -50,7 +50,7 @@ class SudokuSolver {
   // }
 
   checkRegionPlacement(puzzleString, row, column, value) {
-    // hard coded regions by index - ughhhhh
+    // hard coded regions by index - ughhhhh, let's see if this is fast enough
     const regions = [
       [0, 1, 2, 9, 10, 11, 18, 19, 20],
       [3, 4, 5, 12, 13, 14, 21, 22, 23],
@@ -80,7 +80,7 @@ class SudokuSolver {
   }
 
   solve(puzzleString) {
-    
+    // console.log(puzzleString);
   }
 }
 
