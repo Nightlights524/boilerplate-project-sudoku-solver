@@ -9,24 +9,45 @@ class SudokuSolver {
 
     return testRegex.test(puzzleString);
   }
-
+  
   // ROWS ARE A-I, COLUMNS are 1-9
-  checkRowPlacement(puzzleString, row, column, value) {
-    for (const char of puzzleString) {
+  // checkRowPlacement(puzzleString, row, column, value) {
+  //   const startingIndex = column - 1;
+  //   for (let index = startingIndex; index < startingIndex + 9; ++index) {
+  //     if (puzzleString[index] === value) {
+  //       return false;
+  //     }
+  //   }
+  //   return true;
+  // }
 
-    }
-  }
+  // checkRowPlacement2(puzzleString, row, column, value) {
+  //   for (let i = 0; i < 9; i++) {
+  //     if (puzzleString[column*9+i] == value) {
+  //         return false;
+  //     }
+  //   }
+  //   return true;
+  // }
 
   checkColPlacement(puzzleString, row, column, value) {
-    for (let index = 0; index < puzzleString.length; ++index) {
-      if ( (puzzleString[index] % 9) + 1 === column ) {
-        if (puzzleString[index] === value) {
-          return false;
-        }
+    const startingIndex = column - 1;
+    for (let index = startingIndex; index < puzzleString.length; index += 9) {
+      if (puzzleString[index] === value) {
+        return false;
       }
     }
     return true;
   }
+
+  // checkColPlacement2(puzzleString, row, column, value) {
+  //   for (let i = 0; i < 9; i++) {
+  //     if (puzzleString[i*9+row] == value) {
+  //         return false;
+  //     }
+  //   }
+  //   return true;
+  // }
 
   checkRegionPlacement(puzzleString, row, column, value) {
 
