@@ -4,9 +4,7 @@ class SudokuSolver {
     if (puzzleString.length !== 81) {
       return false;
     }
-
     const testRegex = /^[1-9.]+$/;
-
     return testRegex.test(puzzleString);
   }
   
