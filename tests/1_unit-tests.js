@@ -55,7 +55,8 @@ suite('UnitTests', () => {
 
   test('Logic handles a valid region (3x3 grid) placement', done => {
     const puzzleString = '..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
-    assert.isTrue(solver.checkRegionPlacement(puzzleString, 'A', 1, 7));
+    assert.isTrue(solver.checkRegionPlacement(puzzleString, 'C', 7, 5));
+    // assert.isTrue(solver.checkRegionPlacement(puzzleString, 'A', 1, 7));
     done();
   });
 
@@ -64,16 +65,18 @@ suite('UnitTests', () => {
     assert.isFalse(solver.checkRegionPlacement(puzzleString, 'A', 1, 5));
     done();
   });
-
+  
   // test('Valid puzzle strings pass the solver', done => {
   //   // done();
   // });
-
+    
   // test('Invalid puzzle strings fail the solver', done => {
   //   // done();
   // });
-
+      
   // test('Solver returns the expected solution for an incomplete puzzle', done => {
+  //   const puzzleString = '..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
+  //   const solution = '769235418851496372432178956174569283395842761628713549283657194516924837947381625';
   //   // done();
   // });
 

@@ -8,7 +8,11 @@ module.exports = function (app) {
 
   app.route('/api/check')
     .post((req, res) => {
+      const {puzzle, coordinate, value} = req.body;
 
+      console.log(solver.checkCoordinate(puzzle, coordinate, value));
+
+      return res.json(solver.checkCoordinate(puzzle, coordinate, value));
     });
     
   app.route('/api/solve')

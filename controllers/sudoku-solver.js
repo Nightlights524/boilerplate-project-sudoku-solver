@@ -13,6 +13,30 @@ class SudokuSolver {
 
     return {result: true};
   }
+
+  checkCoordinate(puzzleString, coordinate, value) {
+    let [row, column] = coordinate.split('');
+    column = parseInt(column);
+    const conflict = [];
+
+    if (!this.checkRowPlacement(puzzleString, row, column, value)) {
+      conflict.push('row');
+    }
+    
+    if (!this.checkColPlacement(puzzleString, row, column, value)) {
+      conflict.push('column');
+    }
+    
+    if (!this.checkRegionPlacement(puzzleString, row, column, value)) {
+      conflict.push('region');
+    }
+
+    if (conflict.length > 0) {
+      return {valid: false, conflict};
+    }
+
+    return {valid: true};
+  }
   
   // ROWS ARE A-I, COLUMNS are 1-9
   checkRowPlacement(puzzleString, row, column, value) {
