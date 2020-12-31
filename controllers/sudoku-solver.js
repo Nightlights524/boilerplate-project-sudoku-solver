@@ -38,7 +38,6 @@ class SudokuSolver {
     return {valid: true};
   }
   
-  // ROWS ARE A-I, COLUMNS are 1-9
   checkRowPlacement(puzzleString, row, column, value) {
     const rows = ['A','B','C','D','E','F','G','H','I'];
     const startingIndex = rows.indexOf(row.toUpperCase()) * 9;
@@ -51,15 +50,6 @@ class SudokuSolver {
     return true;
   }
 
-  // checkRowPlacement2(puzzleString, row, column, value) {
-  //   for (let i = 0; i < 9; i++) {
-  //     if (puzzleString[column*9+i] == value) {
-  //         return false;
-  //     }
-  //   }
-  //   return true;
-  // }
-
   checkColPlacement(puzzleString, row, column, value) {
     const startingIndex = column - 1;
     for (let index = startingIndex; index < puzzleString.length; index += 9) {
@@ -70,17 +60,8 @@ class SudokuSolver {
     return true;
   }
 
-  // checkColPlacement2(puzzleString, row, column, value) {
-  //   for (let i = 0; i < 9; i++) {
-  //     if (puzzleString[i*9+row] == value) {
-  //         return false;
-  //     }
-  //   }
-  //   return true;
-  // }
-
   checkRegionPlacement(puzzleString, row, column, value) {
-    // hard coded regions by index - ughhhhh, let's see if this is fast enough
+    // hard-coded regions by index - ughhhhh, let's see if this is fast enough
     const regions = [
       [0, 1, 2, 9, 10, 11, 18, 19, 20],
       [3, 4, 5, 12, 13, 14, 21, 22, 23],
@@ -110,7 +91,7 @@ class SudokuSolver {
   }
 
   solve(puzzleString) {
-    // console.log(puzzleString);
+    return {error: 'Puzzle cannot be solved'};
   }
 }
 

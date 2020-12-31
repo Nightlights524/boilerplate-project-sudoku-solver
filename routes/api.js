@@ -44,5 +44,7 @@ module.exports = function (app) {
       if (error != null) {
         return res.json({error});
       }
+
+      return res.json(solver.solve(puzzle));
     });
 };
