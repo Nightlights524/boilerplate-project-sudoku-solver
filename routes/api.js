@@ -44,10 +44,14 @@ module.exports = function (app) {
       const {puzzle} = req.body;
       const {error} = solver.validate(puzzle);
 
-      if (puzzle === undefined || 
-          puzzle === '') {
+      if (!Object.prototype.hasOwnProperty.call(req.body, 'puzzle')) {
         return res.json({error: 'Required field missing'});
       }
+
+      // if (puzzle === undefined || 
+      //     puzzle === '') {
+      //   return res.json({error: 'Required field missing'});
+      // }
 
       if (error != null) {
         return res.json({error});
