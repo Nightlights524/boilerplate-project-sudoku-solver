@@ -49,7 +49,7 @@ module.exports = function (app) {
         return res.json({error: 'Required field missing'});
       }
 
-      if (error == null) {
+      if (error != null) {
         return res.json({error});
       }
 
@@ -57,11 +57,8 @@ module.exports = function (app) {
       //   return res.json({error: puzzleValidator.error});
       // }
 
-      // if (error === 'Expected puzzle to be 81 characters long') {
-      //   return res.json({error});
-      // }
-
-      // if (error === 'Invalid characters in puzzle') {
+      // if (error === 'Expected puzzle to be 81 characters long' ||
+      //     error === 'Invalid characters in puzzle) {
       //   return res.json({error});
       // }
     });
