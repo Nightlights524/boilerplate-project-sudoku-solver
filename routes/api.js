@@ -8,17 +8,14 @@ module.exports = function (app) {
 
   app.route('/api/check')
     .post((req, res) => {
+      if (!Object.prototype.hasOwnProperty.call(req.body, 'puzzle') ||
+          !Object.prototype.hasOwnProperty.call(req.body, 'coordinate') ||
+          !Object.prototype.hasOwnProperty.call(req.body, 'value')) {
+          return res.json({error: 'Required field(s) missing'});
+      }
+
       const {puzzle, coordinate, value} = req.body;
       const {error} = solver.validate(puzzle);
-
-      if (puzzle === undefined || 
-          puzzle === '' ||
-          coordinate === undefined ||
-          coordinate === '' ||
-          value === undefined ||
-          value === '') {
-        return res.json({error: 'Required field(s) missing'});
-      }
 
       if (!/^[1-9]$/.test(value)) { 
         return res.json({error: 'Invalid value'});
@@ -28,11 +25,7 @@ module.exports = function (app) {
         return res.json({error: 'Invalid coordinate'});
       }
 
-      if (error === 'Expected puzzle to be 81 characters long') {
-        return res.json({error});
-      }
-
-      if (error === 'Invalid characters in puzzle') {
+      if (error != null) {
         return res.json({error});
       }
 
@@ -41,29 +34,15 @@ module.exports = function (app) {
     
   app.route('/api/solve')
     .post((req, res) => {
-      const {puzzle} = req.body;
-      const {error} = solver.validate(puzzle);
-
       if (!Object.prototype.hasOwnProperty.call(req.body, 'puzzle')) {
         return res.json({error: 'Required field missing'});
       }
 
-      // if (puzzle === undefined || 
-      //     puzzle === '') {
-      //   return res.json({error: 'Required field missing'});
-      // }
+      const {puzzle} = req.body;
+      const {error} = solver.validate(puzzle);
 
       if (error != null) {
         return res.json({error});
       }
-
-      // if (!Object.prototype.hasOwnProperty.call(puzzleValidator, 'error')) {
-      //   return res.json({error: puzzleValidator.error});
-      // }
-
-      // if (error === 'Expected puzzle to be 81 characters long' ||
-      //     error === 'Invalid characters in puzzle) {
-      //   return res.json({error});
-      // }
     });
 };
