@@ -11,7 +11,7 @@ module.exports = function (app) {
       console.log('CHECK endpoint hit');
 
       const {puzzle, coordinate, value} = req.body;
-      const {result, error} = solver.validate(puzzle);
+      const {error} = solver.validate(puzzle);
 
       if (puzzle === undefined || 
           puzzle === '' ||
@@ -22,13 +22,9 @@ module.exports = function (app) {
         return res.json({error: 'Required field(s) missing'});
       }
 
-      if (value < 1 || value > 9) {
+      if (!/^[1-9]$/.test(value)) { 
         return res.json({error: 'Invalid value'});
       }
-
-      console.log(coordinate[0]);
-      console.log(coordinate[1]);
-      console.log(parseInt(coordinate[1]));
 
       if (!/^[a-hA-H][1-9]$/.test(coordinate)) { 
         return res.json({error: 'Invalid coordinate'});
