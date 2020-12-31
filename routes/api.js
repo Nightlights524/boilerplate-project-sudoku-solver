@@ -8,8 +8,6 @@ module.exports = function (app) {
 
   app.route('/api/check')
     .post((req, res) => {
-      console.log('CHECK endpoint hit');
-
       const {puzzle, coordinate, value} = req.body;
       const {error} = solver.validate(puzzle);
 
@@ -43,6 +41,28 @@ module.exports = function (app) {
     
   app.route('/api/solve')
     .post((req, res) => {
+      const {puzzle} = req.body;
+      const {error} = solver.validate(puzzle);
 
+      if (puzzle === undefined || 
+          puzzle === '') {
+        return res.json({error: 'Required field missing'});
+      }
+
+      if (error == null) {
+        return res.json({error});
+      }
+
+      // if (!Object.prototype.hasOwnProperty.call(puzzleValidator, 'error')) {
+      //   return res.json({error: puzzleValidator.error});
+      // }
+
+      // if (error === 'Expected puzzle to be 81 characters long') {
+      //   return res.json({error});
+      // }
+
+      // if (error === 'Invalid characters in puzzle') {
+      //   return res.json({error});
+      // }
     });
 };
