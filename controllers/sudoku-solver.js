@@ -90,11 +90,63 @@ class SudokuSolver {
     }
   }
 
+  checkPlacementByIndex(puzzleString, index, value) {
+    const rows = ['A','B','C','D','E','F','G','H','I'];
+    let row = rows[Math.floor(index/9)];
+    let column = parseInt(column);
+    column = (index % 9) + 1;
+
+    return this.checkRowPlacement(puzzleString, row, column, value) &&
+           this.checkColPlacement(puzzleString, row, column, value) &&
+           this.checkRegionPlacement(puzzleString, row, column, value);
+  }
+
   solve(puzzleString) {
-    let solution = puzzleString;
-    // return {error: 'Puzzle cannot be solved'};
-    // solution = '769235418851496372432178956174569283395842761628713549283657194516924837947381625';
-    return {solution};
+    let solution = puzzleString.split('');
+    let indexArray = [];
+    let currentIndex = 0;
+
+    while (currentIndex < solution.length) {
+      if (solution[currentIndex] === '.') {
+        indexArray.push(currentIndex);
+
+        let value;
+        for (value = 1; value <= 9; ++value) {
+          if (this.checkPlacementByIndex(solution, currentIndex, value)) {
+            solution[currentIndex] = value;
+            break;
+          }
+          
+          if (value === 9) {
+            do {
+              solution[currentIndex] = '.';
+              indexArray.pop();
+              currentIndex = indexArray[indexArray.length - 1];
+              value = parseInt(solution[currentIndex]);
+            }
+            while (solution[currentIndex] == 9);
+            // solution[currentIndex] = '.';
+          }
+        }
+
+        if (value > 9) {
+          break;
+        }
+      }
+      else {
+        ++currentIndex;
+      }
+    }
+
+    for (let index = 0; index < solution.length; ++index) {
+      let tempSolution = [...solution];
+      tempSolution[index] = '.';
+      if (!this.checkPlacementByIndex(tempSolution, index, solution[index])) {
+        return {error: 'Puzzle cannot be solved'};
+      }
+    }
+    
+    return {solution: solution.join('')};
   }
 }
 
