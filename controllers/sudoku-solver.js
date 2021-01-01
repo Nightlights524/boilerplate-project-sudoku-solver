@@ -125,7 +125,7 @@ class SudokuSolver {
               value = parseInt(solution[currentIndex]);
             }
             while (solution[currentIndex] == 9);
-            // solution[currentIndex] = '.';
+            solution[currentIndex] = '.';
           }
         }
 
